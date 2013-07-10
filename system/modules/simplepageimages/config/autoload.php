@@ -18,7 +18,7 @@
 ClassLoader::addClasses(array
 (
 	'SimplePageImages' 			=> 'system/modules/simplepageimages/classes/SimplePageImages.php',
-	'ModuleBackgroundImageSPIS' => 'system/modules/simplepageimages/modules/ModuleBackgroundImageSPIS.php',
+	'ModuleBGImageSPIS' => 'system/modules/simplepageimages/modules/ModuleBGImageSPIS.php',
 ));
 
 /**
@@ -26,6 +26,6 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_background_image_spis'	=> 'system/modules/simplepageimages/templates',
+	'mod_bgimage_spis'			=> 'system/modules/simplepageimages/templates',
 	'layout_single_default'		=> 'system/modules/simplepageimages/templates'
 ));

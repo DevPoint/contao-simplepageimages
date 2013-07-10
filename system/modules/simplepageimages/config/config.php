@@ -23,6 +23,6 @@
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 (
-    'background_image_spis' => 'ModuleBackgroundImageSPIS'
+    'bgimage_spis' => 'ModuleBGImageSPIS'
 ));
 

@@ -30,5 +30,5 @@
 /**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['background_image_spis']	= array('Seitenbild als Background-Image', 'Modul zur Anzeige des ersten Seitenbildes als Background-Image.');
+$GLOBALS['TL_LANG']['FMD']['bgimage_spis']	= array('Background-Image SPIS', 'Modul zur Anzeige des ersten Seitenbildes als Background-Image.');
 

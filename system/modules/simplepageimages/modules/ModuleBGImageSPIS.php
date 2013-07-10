@@ -26,13 +26,13 @@
  * @license    MIT
  */
 
-class ModuleBackgroundImageSPIS extends SimplePageImages {
+class ModuleBGImageSPIS extends SimplePageImages {
 
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_background_image_spis';
+    protected $strTemplate = 'mod_bgimage_spis';
 
     /**
      * Generate module
