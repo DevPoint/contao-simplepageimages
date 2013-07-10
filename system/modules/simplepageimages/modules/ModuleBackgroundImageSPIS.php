@@ -26,19 +26,27 @@
  * @license    MIT
  */
 
-class ModuleSimplePageImagesSingle extends SimplePageImages {
+class ModuleBackgroundImageSPIS extends SimplePageImages {
 
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_simplepageimages_single';
+    protected $strTemplate = 'mod_background_image_spis';
 
     /**
      * Generate module
      */
-    protected function compile() {
-
-		$this->Template->image = '<p>Wilfried hats geschafft!</p>';
+    protected function compile() 
+    {
+        $arrImages = $this->findPageImages(false);
+        if (null !== $arrImages && !empty($arrImages))
+        {
+            $this->Template->image = $arrImages[0]['singleSrc'];
+        }
+        else
+        {
+            $this->Template->image = false;  
+        }
     }
 }

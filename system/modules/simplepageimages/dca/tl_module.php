@@ -16,8 +16,7 @@
 /**
  * Add a palette to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_single'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_recursive,simplepageimages_layout;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_fullcss'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_recursive;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['background_image_spis'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_recursive;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
  * Add fields to tl_module

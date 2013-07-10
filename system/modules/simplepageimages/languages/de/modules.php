@@ -30,6 +30,5 @@
 /**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['simplepageimages_single']	= array('Einzelnes Seitenbild', 'Modul zur Anzeige des ersten Seitenbildes.');
-$GLOBALS['TL_LANG']['FMD']['simplepageimages_fullcss']	= array('Vollformat Seitenbild CSS', 'Modul zur Anzeige des ersten Seitenbildes als vollformatiges Hintergrundbild.');
+$GLOBALS['TL_LANG']['FMD']['background_image_spis']	= array('Seitenbild als Background-Image', 'Modul zur Anzeige des ersten Seitenbildes als Background-Image.');
 

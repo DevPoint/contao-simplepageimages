@@ -17,10 +17,8 @@
  */
 ClassLoader::addClasses(array
 (
-	// Classes
-	'SimplePageImages' 		=> 'system/modules/simplepageimages/classes/SimplePageImages.php',
-	'ModuleSimplePageImagesSingle' 	=> 'system/modules/simplepageimages/modules/ModuleSimplePageImagesSingle.php',
-	'ModuleSimplePageImagesFullCss'	=> 'system/modules/simplepageimages/modules/ModuleSimplePageImagesFullCss.php'
+	'SimplePageImages' 			=> 'system/modules/simplepageimages/classes/SimplePageImages.php',
+	'ModuleBackgroundImageSPIS' => 'system/modules/simplepageimages/modules/ModuleBackgroundImageSPIS.php',
 ));
 
 /**
@@ -28,7 +26,6 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_simplepageimages_single'	=> 'system/modules/simplepageimages/templates',
-	'mod_simplepageimages_fullcss'	=> 'system/modules/simplepageimages/templates',
-	'layout_single_default'			=> 'system/modules/simplepageimages/templates'
+	'mod_background_image_spis'	=> 'system/modules/simplepageimages/templates',
+	'layout_single_default'		=> 'system/modules/simplepageimages/templates'
 ));

@@ -23,7 +23,6 @@
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 (
-    'simplepageimages_single' => 'ModuleSimplePageImagesSingle',
-    'simplepageimages_fullcss' => 'ModuleSimplePageImagesFullCss'
+    'background_image_spis' => 'ModuleBackgroundImageSPIS'
 ));
 
