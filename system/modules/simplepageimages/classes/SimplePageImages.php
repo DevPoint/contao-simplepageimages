@@ -400,11 +400,16 @@ abstract class SimplePageImages extends \Module {
 		// retrieve Page Images from parent pages
 		if ((null === $arrImages || empty($arrImages)) && $recursively)
 		{
-			$objParentPages = PageModel::findParentsById($objPage->id);
-			if ($objParentPages !== null)
+			$objParentPage = PageModel::findParentsById($objPage->id);
+			if ($objParentPage !== null)
 			{
-				while ($objParentPages->next())
+				while ($objParentPage->next())
 				{
+					if ($objParentPage->simplepageimages_enable)
+					{
+						$arrImages = $this->getImages($objParentPage->simplepageimages_images, $objPage->language);
+						if (null !== $arrImages && !empty($arrImages)) break;
+					}
 				}
 			}
 		}

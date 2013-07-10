@@ -16,33 +16,42 @@
 /**
  * Add a palette to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_single'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_layout;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_fullcss'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_single'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_recursive,simplepageimages_layout;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['simplepageimages_fullcss'] = '{title_legend},name,headline,type;{template_legend},simplepageimages_source,simplepageimages_recursive;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 /**
  * Add fields to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['fields']['simplepageimages_layout'] = array
-(
-	'label'						=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_layout'],
-	'default'					=> 'simplepageimages_default',
-	'exclude'					=> true,
-	'inputType'					=> 'select',
-	'options_callback'			=> array('tl_module_simplepageimages', 'getSimplePageImagesTemplates'),
-	'eval'						=> array('tl_class'=>'w50'),
-	'sql'						=> "varchar(64) NOT NULL default ''"
-);
-
 $GLOBALS['TL_DCA']['tl_module']['fields']['simplepageimages_source'] = array
 (
-	'label'						=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_source'],
-	'default'					=> 'page',
-	'exclude'					=> true,
-	'inputType'					=> 'select',
-	'options'					=> array('page', 'news', 'event'),
-	'reference'					=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_source_options'],
-	'eval'						=> array('tl_class'=>'w50'),
-	'sql'						=> "varchar(64) NOT NULL default 'page'"
+	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_source'],
+	'default'			=> 'page',
+	'exclude'			=> true,
+	'inputType'			=> 'select',
+	'options'			=> array('page', 'news', 'event'),
+	'reference'			=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_source_options'],
+	'eval'				=> array('tl_class'=>'w50'),
+	'sql'				=> "varchar(64) NOT NULL default 'page'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['simplepageimages_recursive'] = array
+(
+	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_recursive'],
+	'exclude'			=> true,
+	'inputType'			=> 'checkbox',
+	'eval'				=> array('tl_class'=>'w50 m12'),
+	'sql'				=> "char(1) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['simplepageimages_layout'] = array
+(
+	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['simplepageimages_layout'],
+	'default'			=> 'simplepageimages_default',
+	'exclude'			=> true,
+	'inputType'			=> 'select',
+	'options_callback'	=> array('tl_module_simplepageimages', 'getSimplePageImagesTemplates'),
+	'eval'				=> array('tl_class'=>'w50'),
+	'sql'				=> "varchar(64) NOT NULL default ''"
 );
 
 class tl_module_simplepageimages extends Backend {
@@ -60,6 +69,6 @@ class tl_module_simplepageimages extends Backend {
 			$intPid = Input::get('id');
 		}
 			
-		return $this->getTemplateGroup('spis_', $intPid);
+		return $this->getTemplateGroup('layout_', $intPid);
 	}
 }

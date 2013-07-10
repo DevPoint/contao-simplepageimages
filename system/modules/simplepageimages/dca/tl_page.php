@@ -84,3 +84,4 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_order'] = array
 	'label'			=> &$GLOBALS['TL_LANG']['tl_page']['simplepageimages_order'],
 	'sql'			=> "text NULL"
 );
+

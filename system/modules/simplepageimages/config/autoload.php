@@ -30,5 +30,5 @@ TemplateLoader::addFiles(array
 (
 	'mod_simplepageimages_single'	=> 'system/modules/simplepageimages/templates',
 	'mod_simplepageimages_fullcss'	=> 'system/modules/simplepageimages/templates',
-	'spis_single_default'			=> 'system/modules/simplepageimages/templates'
+	'layout_single_default'			=> 'system/modules/simplepageimages/templates'
 ));
