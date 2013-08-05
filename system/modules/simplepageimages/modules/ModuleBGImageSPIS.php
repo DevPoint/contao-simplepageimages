@@ -42,11 +42,11 @@ class ModuleBGImageSPIS extends SimplePageImages {
         $arrImages = $this->findPageImages(false);
         if (null !== $arrImages && !empty($arrImages))
         {
-            $this->Template->image = $arrImages[0]['singleSrc'];
+            $this->Template->src = $arrImages[0]['singleSrc'];
         }
         else
         {
-            $this->Template->image = false;  
+            $this->Template->src = false;
         }
     }
 }

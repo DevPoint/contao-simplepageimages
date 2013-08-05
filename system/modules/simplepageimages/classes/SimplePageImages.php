@@ -70,9 +70,12 @@ abstract class SimplePageImages extends \Module {
 			'id'        => $objFileId,
 			'name'      => $file->basename,
 			'singleSrc' => $objFile->path,
-			'alt'       => $arrMeta['title'],
+			'title'     => $arrMeta['title'],
 			'imageUrl'  => $arrMeta['link'],
-			'caption'   => $arrMeta['caption']);
+			'caption'   => $arrMeta['caption']
+			'fullSize'  => false,
+			'imagemargin' => false,
+			'size'   	=> $arrMeta['size']);
 	}
 
 

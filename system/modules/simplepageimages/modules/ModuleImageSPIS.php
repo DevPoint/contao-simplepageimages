@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -23,13 +23,32 @@
  * @package    SimplePageImages
  * @copyright  DevPoint | Wilfried Reiter 2013
  * @author     DevPoint | Wilfried Reiter <wilfried.reiter@devpoint.at>
- * @license MIT
+ * @license    MIT
  */
 
+class ModuleImageSPIS extends SimplePageImages {
 
-/**
- * Front end modules
- */
-$GLOBALS['TL_LANG']['FMD']['image_spis']	= array('Image SPIS', 'Modul zur Anzeige des ersten Seitenbildes als Image.');
-$GLOBALS['TL_LANG']['FMD']['bgimage_spis']	= array('Background-Image SPIS', 'Modul zur Anzeige des ersten Seitenbildes als Background-Image.');
+    /**
+     * Template
+     * @var string
+     */
+    protected $strTemplate = 'mod_image_spis';
 
+    /**
+     * Generate module
+     */
+    protected function compile() 
+    {
+        $arrImages = $this->findPageImages(false);
+        if (null !== $arrImages && !empty($arrImages))
+        {
+            $this->Template->src = $arrImages[0]['singleSrc'];
+            $this->Template->title = $arrImages[0]['title'];
+            $this->Template->caption = $arrImages[0]['caption'];
+        }
+        else
+        {
+            $this->Template->src = false;  
+        }
+    }
+}

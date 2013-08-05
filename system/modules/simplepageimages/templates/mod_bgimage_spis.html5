@@ -1,4 +1,4 @@
-<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?> style="background-image:url('<?php echo $this->image; ?>');">
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?> style="background-image:url('<?php echo $this->src; ?>');">
 </div>
-<?php if ($this->image): ?>
+<?php if ($this->src): ?>
 <?php endif;?>
