@@ -37,7 +37,7 @@ abstract class SimplePageImages extends \Module {
 		{
 			return false;
 		}
-
+		
 		// retrieve Meta date in current language
 		if (isset($arrMeta[$objPage->language]))
 		{
@@ -72,12 +72,8 @@ abstract class SimplePageImages extends \Module {
 			'singleSrc' => $objFile->path,
 			'title'     => $arrMeta['title'],
 			'imageUrl'  => $arrMeta['link'],
-			'caption'   => $arrMeta['caption']
-			'fullSize'  => false,
-			'imagemargin' => false,
-			'size'   	=> $arrMeta['size']);
+			'caption'   => $arrMeta['caption']);
 	}
-
 
 	/**
 	 * Returns image data array
