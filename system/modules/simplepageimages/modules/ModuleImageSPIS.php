@@ -42,9 +42,8 @@ class ModuleImageSPIS extends SimplePageImages {
         $arrImages = $this->findPageImages(false);
         if (null !== $arrImages && !empty($arrImages))
         {
-            $this->Template->src = $arrImages[0]['singleSrc'];
-            $this->Template->title = $arrImages[0]['title'];
-            $this->Template->caption = $arrImages[0]['caption'];
+			$arrImages[0]['size'] = $this->imgSize;
+			$this->addImageToTemplate($this->Template, $arrImages[0]);
         }
         else
         {
