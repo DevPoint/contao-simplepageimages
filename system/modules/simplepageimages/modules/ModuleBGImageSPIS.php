@@ -39,7 +39,8 @@ class ModuleBGImageSPIS extends SimplePageImages {
      */
     protected function compile() 
     {
-        $arrImages = $this->findPageImages(false);
+        $recursive = ($this->simplepageimages_recursive) ? true : false;
+		$arrImages = $this->findPageImages($recursive);
         if (null !== $arrImages && !empty($arrImages))
         {
 			$arrImages[0]['size'] = $this->imgSize;
