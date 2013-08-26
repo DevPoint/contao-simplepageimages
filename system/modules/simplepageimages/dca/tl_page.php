@@ -23,6 +23,12 @@ $GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] = str_replace
 	'{simplepageimages_legend:hide},simplepageimages_enable;{cache_legend:hide}',
 	$GLOBALS['TL_DCA']['tl_page']['palettes']['regular']
 );
+$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace
+(
+	'{cache_legend:hide}',
+	'{simplepageimages_legend:hide},simplepageimages_enable;{cache_legend:hide}',
+	$GLOBALS['TL_DCA']['tl_page']['palettes']['root']
+);
 $GLOBALS['TL_DCA']['tl_page']['palettes']['error_403'] = str_replace
 (
 	'{cache_legend:hide}',
