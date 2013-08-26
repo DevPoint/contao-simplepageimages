@@ -39,30 +39,12 @@ abstract class SimplePageImages extends \Module {
 		}
 		
 		// retrieve Meta date in current language
-		if (isset($arrMeta[$objPage->language]))
-		{
-			$arrLangMeta = $arrMeta[$objPage->language];
-			if (isset($arrLangMeta['title']))
-			{
-				$arrMeta['title'] = $arrLangMeta['title'];
-			}
-			if (isset($arrLangMeta['caption']))
-			{
-				$arrMeta['caption'] = $arrLangMeta['caption'];
-			}
-		}
+		$arrMeta = $this->getMetaData($objFile->meta, $language);
 
 		// Use the file name as title if none is given
-		$arrMeta = $this->getMetaData($objFile->meta, $objPage->language);
 		if ($arrMeta['title'] == '')
 		{
-			$arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $file->filename)));
-		}
-
-		// replace empty caption through titile
-		if ($arrMeta['caption'] == '')
-		{
-			$arrMeta['caption'] = $arrMeta['title'];
+			$arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
 		}
 
 		// return the image
@@ -70,7 +52,7 @@ abstract class SimplePageImages extends \Module {
 			'id'        => $objFileId,
 			'name'      => $file->basename,
 			'singleSRC' => $objFile->path,
-			'title'     => $arrMeta['title'],
+			'alt'     	=> $arrMeta['title'],
 			'imageUrl'  => $arrMeta['link'],
 			'caption'   => $arrMeta['caption']);
 	}
