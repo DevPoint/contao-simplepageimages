@@ -151,6 +151,39 @@ abstract class SimplePageImages extends \Module {
 	}
 
 	/**
+	 * check if a protected archive is visible
+	 * @param $archiveGroups (serialized)
+	 * @param $user FrontendUser
+	 * @return array
+	 *
+	 * Remark: This function is the essence of the
+	 * <Contao\Events::sortOutProtected> and
+	 * <Contao\ModuleNews::sortOutProtected> functions
+	 */
+	static public function checkProtectedArchiveVisible($archiveGroups, $user)
+	{
+		if (BE_USER_LOGGED_IN)
+		{
+			return true;
+		}
+
+		if (!FE_USER_LOGGED_IN)
+		{
+			return false;
+		}
+
+		$groups = deserialize($archiveGroups);
+
+		if (!is_array($groups) || empty($groups) || !count(array_intersect($groups, $user->groups)))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+
+
+	/**
 	 * Sort out protected archives
 	 * @param array
 	 * @return array
@@ -173,22 +206,10 @@ abstract class SimplePageImages extends \Module {
 		{
 			while ($objCalendar->next())
 			{
-				if ($objCalendar->protected)
+				if (!$objCalendar->protected || $this->checkProtectedArchiveVisible($objCalendar->groups, $this->User))
 				{
-					if (!FE_USER_LOGGED_IN)
-					{
-						continue;
-					}
-
-					$groups = deserialize($objCalendar->groups);
-
-					if (!is_array($groups) || empty($groups) || count(array_intersect($groups, $this->User->groups)) < 1)
-					{
-						continue;
-					}
+					$arrCalendars[] = $objCalendar->id;
 				}
-
-				$arrCalendars[] = $objCalendar->id;
 			}
 		}
 
@@ -273,22 +294,10 @@ abstract class SimplePageImages extends \Module {
 		{
 			while ($objArchive->next())
 			{
-				if ($objArchive->protected)
+				if (!$objArchive->protected || $this->checkProtectedArchiveVisible($objArchive->groups, $this->User))
 				{
-					if (!FE_USER_LOGGED_IN)
-					{
-						continue;
-					}
-
-					$groups = deserialize($objArchive->groups);
-
-					if (!is_array($groups) || empty($groups) || !count(array_intersect($groups, $this->User->groups)))
-					{
-						continue;
-					}
+					$arrArchives[] = $objArchive->id;
 				}
-
-				$arrArchives[] = $objArchive->id;
 			}
 		}
 
