@@ -66,6 +66,12 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_enable'] = array
 	'sql'			=> "char(1) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_order'] = array
+(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_page']['simplepageimages_order'],
+	'sql'			=> "blob NULL"
+);
+
 $GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_images'] = array
 (
 	'label'			=> &$GLOBALS['TL_LANG']['tl_page']['simplepageimages_images'],
@@ -82,12 +88,6 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_images'] = array
 		'multiple'		=> true,
 		'extensions'	=> $GLOBALS['TL_CONFIG']['validImageTypes']
 	),
-	'sql'			=> "blob NOT NULL"
-);
-
-$GLOBALS['TL_DCA']['tl_page']['fields']['simplepageimages_order'] = array
-(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_page']['simplepageimages_order'],
-	'sql'			=> "text NULL"
+	'sql'			=> "blob NULL"
 );
 

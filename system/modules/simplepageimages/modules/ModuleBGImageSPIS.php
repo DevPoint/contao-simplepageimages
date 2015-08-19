@@ -43,11 +43,14 @@ class ModuleBGImageSPIS extends SimplePageImages {
 		$arrImages = $this->findPageImages($recursive);
         if (null !== $arrImages && !empty($arrImages))
         {
-			$arrImages[0]['size'] = $this->imgSize;
-			$arrImages[0]['fullsize'] = false;
-			$arrImages[0]['imagemargin'] = false;
-			$imgSize = getimagesize(TL_ROOT .'/'. $arrImages[0]['singleSRC']);
-			$this->addImageToTemplate($this->Template, $arrImages[0], $imgSize[0]);
+            foreach ($arrImages as $arrImage)
+            {
+    			$arrImage['size'] = $this->imgSize;
+    			$arrImage['fullsize'] = false;
+    			$arrImage['imagemargin'] = false;
+    			$imgSize = getimagesize(TL_ROOT .'/'. $arrImage['singleSRC']);
+    			$this->addImageToTemplate($this->Template, $arrImage, $imgSize[0]);
+            }
         }
         else
         {

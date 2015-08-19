@@ -28,7 +28,16 @@
 
 abstract class SimplePageImages extends \Module {
 
-
+	/**
+	 * Returns image data
+	 *
+	 * Adopted from Contao/core/elements/ContentGallery.php
+	 *
+	 * @param array  $objFile
+	 * @param string|id  $objFileId
+	 * @param string  $language
+	 * @return array
+	 */
 	private function getImageFromFile($objFile, $objFileId, $language)
 	{
 		// Only use image type files
@@ -44,12 +53,13 @@ abstract class SimplePageImages extends \Module {
 		// Use the file name as title if none is given
 		if ($arrMeta['title'] == '')
 		{
-			$arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
+			$arrMeta['title'] = specialchars($objFile->basename);
 		}
 
 		// return the image
 		return array(
 			'id'        => $objFileId,
+			'uuid'      => $objFile->uuid,
 			'name'      => $file->basename,
 			'singleSRC' => $objFile->path,
 			'alt'     	=> $arrMeta['title'],
@@ -59,10 +69,13 @@ abstract class SimplePageImages extends \Module {
 
 	/**
 	 * Returns image data array
+	 *
+	 * Adopted from Contao/core/elements/ContentGallery.php
+	 *
 	 * @param $multiSrc as retrieved from database
 	 * @return array
 	 */
-	protected function getImages($multiSrc, $language)
+	protected function getImages($multiSrc, $orderSrc, $language)
 	{
 		// deserialize Image IDs
 		$multiSrc = deserialize($multiSrc);
@@ -72,13 +85,14 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		// Get the file entries from the database
-		$objFiles = \FilesModel::findMultipleByIds($multiSrc);
+		$objFiles = \FilesModel::findMultipleByUuids($multiSrc);
 		if ($objFiles === null)
 		{
 			return null;
 		}
 	
 		// Get all images
+		$images = array();
 		while ($objFiles->next())
 		{
 			// Continue if the files has been processed or does not exist
@@ -119,26 +133,34 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		// Sort Images in order given by <$multiSrc>
-		// Folders are embedding multiple Images
-		$imagesById = array();
-		foreach($images as $arrImage)
+		if (!empty($orderSrc))
 		{
-			$id = $arrImage['id'];
-			if (!isset($imagesById[$id]))
+			$tmp = deserialize($orderSrc);
+
+			if (!empty($tmp) && is_array($tmp))
 			{
-				$imagesById[$id] = array();
-			}
-			$imagesById[$id][] = $arrImage;
-		}
-		$images = array();
-		foreach($multiSrc as $src)
-		{
-			if (isset($imagesById[$src]))
-			{
-				foreach($imagesById[$src] as $arrImage)
+				// Remove all values
+				$arrOrder = array_map(function(){}, array_flip($tmp));
+
+				// Move the matching elements to their position in $arrOrder
+				foreach ($images as $k=>$v)
 				{
-					$images[] = $arrImage;
+					if (array_key_exists($v['uuid'], $arrOrder))
+					{
+						$arrOrder[$v['uuid']] = $v;
+						unset($images[$k]);
+					}
 				}
+
+				// Append the left-over images at the end
+				if (!empty($images))
+				{
+					$arrOrder = array_merge($arrOrder, array_values($images));
+				}
+
+				// Remove empty (unreplaced) entries
+				$images = array_values(array_filter($arrOrder));
+				unset($arrOrder);
 			}
 		}
 
@@ -199,7 +221,7 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		$this->import('FrontendUser', 'User');
-		$objCalendar = \CalendarModel::findMultipleByIds($arrCalendars);
+		$objCalendar = \CalendarModel::findMultipleByUuids($arrCalendars);
 		$arrCalendars = array();
 
 		if ($objCalendar !== null)
@@ -265,7 +287,7 @@ abstract class SimplePageImages extends \Module {
 		{
 			if ($objEvent->simplepageimages_enable)
 			{
-				$arrImages = $this->getImages($objEvent->simplepageimages_images, $objPage->language);
+				$arrImages = $this->getImages($objEvent->simplepageimages_images, $objEvent->simplepageimages_order, $objPage->language);
 			}
 		}
 		return $arrImages;
@@ -287,7 +309,7 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		$this->import('FrontendUser', 'User');
-		$objArchive = \NewsArchiveModel::findMultipleByIds($arrArchives);
+		$objArchive = \NewsArchiveModel::findMultipleByUuids($arrArchives);
 		$arrArchives = array();
 
 		if ($objArchive !== null)
@@ -352,7 +374,7 @@ abstract class SimplePageImages extends \Module {
 		{
 			if ($objNewsItem->simplepageimages_enable)
 			{
-				$arrImages = $this->getImages($objNewsItem->simplepageimages_images, $objPage->language);
+				$arrImages = $this->getImages($objNewsItem->simplepageimages_images, $objNewsItem->simplepageimages_order, $objPage->language);
 			}
 		}
 		return $arrImages;
@@ -383,7 +405,7 @@ abstract class SimplePageImages extends \Module {
 		{
 			if ($objPage->simplepageimages_enable)
 			{
-				$arrImages = $this->getImages($objPage->simplepageimages_images, $objPage->language);
+				$arrImages = $this->getImages($objPage->simplepageimages_images, $objPage->simplepageimages_order, $objPage->language);
 			}
 		}
 
@@ -397,7 +419,7 @@ abstract class SimplePageImages extends \Module {
 				{
 					if ($objParentPage->simplepageimages_enable)
 					{
-						$arrImages = $this->getImages($objParentPage->simplepageimages_images, $objPage->language);
+						$arrImages = $this->getImages($objParentPage->simplepageimages_images, $objParentPage->simplepageimages_order, $objPage->language);
 						if (null !== $arrImages && !empty($arrImages)) break;
 					}
 				}
