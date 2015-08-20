@@ -85,7 +85,7 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		// Get the file entries from the database
-		$objFiles = \FilesModel::findMultipleByUuids($multiSrc);
+		$objFiles = \FilesModel::findMultipleByIds($multiSrc);
 		if ($objFiles === null)
 		{
 			return null;
@@ -221,7 +221,7 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		$this->import('FrontendUser', 'User');
-		$objCalendar = \CalendarModel::findMultipleByUuids($arrCalendars);
+		$objCalendar = \CalendarModel::findMultipleByIds($arrCalendars);
 		$arrCalendars = array();
 
 		if ($objCalendar !== null)
@@ -309,7 +309,7 @@ abstract class SimplePageImages extends \Module {
 		}
 
 		$this->import('FrontendUser', 'User');
-		$objArchive = \NewsArchiveModel::findMultipleByUuids($arrArchives);
+		$objArchive = \NewsArchiveModel::findMultipleByIds($arrArchives);
 		$arrArchives = array();
 
 		if ($objArchive !== null)
